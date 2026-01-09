@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WorkTrack.App.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav ms-auto user-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var displayName = !string.IsNullOrEmpty(user?.FullName) ? user.FullName : User.Identity?.Name;
+        var userRole = User.IsInRole("Admin") ? "Admin" : User.IsInRole("Manager") ? "Manager" : "Employee";
+        var initials = GetInitials(displayName);
+
+        <li class="nav-item dropdown user-dropdown">
+            <a class="nav-link dropdown-toggle user-menu" href="#" id="userDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="user-avatar">@initials</span>
+                <span class="user-info">
+                    <span class="user-name">@displayName</span>
+                    <span class="user-role">@userRole</span>
+                </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userDropdown">
+                <li class="dropdown-header">
+                    <div class="dropdown-user-info">
+                        <div class="user-name-large">@displayName</div>
+                        <div class="user-email">@User.Identity?.Name</div>
+                    </div>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
+                        <span class="dropdown-icon">👤</span> My Profile
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Settings" asp-action="Index">
+                        <span class="dropdown-icon">⚙️</span> Settings
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Help" asp-action="Index">
+                        <span class="dropdown-icon">❓</span> Help & Support
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form class="dropdown-form" asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="dropdown-item logout-btn">
+                            <span class="dropdown-icon">🚪</span> Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link btn-link-nav" asp-area="Identity" asp-page="/Account/Login">
+                <span class="auth-icon">🔐</span> Login
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn-primary-nav" asp-area="Identity" asp-page="/Account/Register">
+                <span class="auth-icon">✨</span> Get Started
+            </a>
+        </li>
+    }
+</ul>
+
+@functions {
+    private string GetInitials(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "U";
+
+        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 1)
+            return parts[0].Substring(0, Math.Min(2, parts[0].Length)).ToUpper();
+
+        return (parts[0][0].ToString() + parts[parts.Length - 1][0].ToString()).ToUpper();
+    }
+}

@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WorkTrack</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WorkTrack.App.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <svg class="brand-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="24" height="24" rx="4" fill="currentColor" opacity="0.2" />
+                        <path d="M10 16L14 20L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="brand-text">WorkTrack</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                        aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="nav-icon">📊</i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="Index">
+                                <i class="nav-icon">✓</i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">
+                                <i class="nav-icon">📁</i> Projects
+                            </a>
+                        </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="Index">
+                                    <i class="nav-icon">📈</i> Reports
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">
+                                    <i class="nav-icon">⚙️</i> Admin
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="container-fluid">
+            <main role="main" class="content-wrapper">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container-fluid">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span class="footer-brand">WorkTrack</span>
+                    <span class="footer-separator">|</span>
+                    <span class="footer-text">Task Management System</span>
+                </div>
+                <div class="footer-center">
+                    <span class="footer-copyright">&copy; 2026 WorkTrack. All rights reserved.</span>
+                </div>
+                <div class="footer-right">
+                    <a class="footer-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                    <span class="footer-separator">•</span>
+                    <a class="footer-link" asp-area="" asp-controller="Home" asp-action="Terms">Terms of Service</a>
+                    <span class="footer-separator">•</span>
+                    <a class="footer-link" asp-area="" asp-controller="Home" asp-action="Support">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

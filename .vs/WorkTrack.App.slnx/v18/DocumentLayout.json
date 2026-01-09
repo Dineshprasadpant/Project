@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projects\\WorkTrack.App\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ManagerController.cs",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Controllers\\ManagerController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ManagerController.cs",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Controllers\\ManagerController.cs",
+              "RelativeToolTip": "Controllers\\ManagerController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAABMAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-08T16:33:25.829Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

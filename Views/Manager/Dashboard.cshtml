@@ -1,0 +1,518 @@
+﻿@{
+    ViewData["Title"] = "Manager Dashboard";
+}
+
+    <div class="header-content">
+      
+        <div class="header-actions">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+                <span class="btn-icon">➕</span> Create New Task
+            </button>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+                <span class="btn-icon">📁</span> New Project
+            </button>
+        </div>
+    </div>
+
+<div class="stats-grid">
+    <div class="stat-card stat-card-primary">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+            <h3 class="stat-value">12</h3>
+            <p class="stat-label">Ongoing Projects</p>
+        </div>
+        <div class="stat-trend trend-up">
+            <span class="trend-icon">↗</span>
+            <span class="trend-value">+2 this month</span>
+        </div>
+    </div>
+
+    <div class="stat-card stat-card-success">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+            <h3 class="stat-value">24</h3>
+            <p class="stat-label">Team Members</p>
+        </div>
+        <div class="stat-trend trend-up">
+            <span class="trend-icon">↗</span>
+            <span class="trend-value">+3 new</span>
+        </div>
+    </div>
+
+    <div class="stat-card stat-card-warning">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-content">
+            <h3 class="stat-value">48</h3>
+            <p class="stat-label">Active Tasks</p>
+        </div>
+        <div class="stat-trend trend-neutral">
+            <span class="trend-icon">→</span>
+            <span class="trend-value">16 pending</span>
+        </div>
+    </div>
+
+    <div class="stat-card stat-card-info">
+        <div class="stat-icon">✅</div>
+        <div class="stat-content">
+            <h3 class="stat-value">87%</h3>
+            <p class="stat-label">Completion Rate</p>
+        </div>
+        <div class="stat-trend trend-up">
+            <span class="trend-icon">↗</span>
+            <span class="trend-value">+5% vs last month</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Grid -->
+<div class="dashboard-grid">
+    <!-- Ongoing Projects Section -->
+    <div class="dashboard-section projects-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="section-icon">📁</span>
+                Ongoing Projects
+            </h2>
+            <a href="#" class="section-link">View All →</a>
+        </div>
+        <div class="projects-list">
+            <!-- Project Card 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-name">E-Commerce Platform Redesign</h3>
+                        <span class="project-code">PRJ-2024-001</span>
+                    </div>
+                    <div class="project-status status-active">Active</div>
+                </div>
+                <p class="project-description">Complete redesign of the customer-facing e-commerce platform with modern UI/UX</p>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span class="meta-text">8 Members</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span class="meta-text">Due: Mar 15, 2026</span>
+                    </div>
+                </div>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">Progress</span>
+                        <span class="progress-value">65%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar">JD</div>
+                        <div class="team-avatar">SK</div>
+                        <div class="team-avatar">AM</div>
+                        <div class="team-avatar-more">+5</div>
+                    </div>
+                    <button class="btn-icon-only" title="View Details">
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-name">Mobile App Development</h3>
+                        <span class="project-code">PRJ-2024-002</span>
+                    </div>
+                    <div class="project-status status-active">Active</div>
+                </div>
+                <p class="project-description">Native mobile application for iOS and Android platforms</p>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span class="meta-text">6 Members</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span class="meta-text">Due: Apr 20, 2026</span>
+                    </div>
+                </div>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">Progress</span>
+                        <span class="progress-value">42%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 42%"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar">RP</div>
+                        <div class="team-avatar">LM</div>
+                        <div class="team-avatar">TK</div>
+                        <div class="team-avatar-more">+3</div>
+                    </div>
+                    <button class="btn-icon-only" title="View Details">
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project Card 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-info">
+                        <h3 class="project-name">API Integration Service</h3>
+                        <span class="project-code">PRJ-2024-003</span>
+                    </div>
+                    <div class="project-status status-warning">At Risk</div>
+                </div>
+                <p class="project-description">RESTful API integration for third-party service providers</p>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span class="meta-text">4 Members</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span class="meta-text">Due: Feb 28, 2026</span>
+                    </div>
+                </div>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">Progress</span>
+                        <span class="progress-value">28%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-fill-warning" style="width: 28%"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar">NS</div>
+                        <div class="team-avatar">BK</div>
+                        <div class="team-avatar-more">+2</div>
+                    </div>
+                    <button class="btn-icon-only" title="View Details">
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Members Section -->
+    <div class="dashboard-section team-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="section-icon">👥</span>
+                My Team
+            </h2>
+            <a href="#" class="section-link">View All →</a>
+        </div>
+        <div class="team-list">
+            <!-- Team Member 1 -->
+            <div class="team-member">
+                <div class="member-avatar">JD</div>
+                <div class="member-info">
+                    <h4 class="member-name">John Doe</h4>
+                    <p class="member-role">Senior Developer</p>
+                </div>
+                <div class="member-stats">
+                    <div class="stat-badge stat-badge-success">
+                        <span class="badge-label">5 Tasks</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-member">
+                <div class="member-avatar">SK</div>
+                <div class="member-info">
+                    <h4 class="member-name">Sarah Khan</h4>
+                    <p class="member-role">UI/UX Designer</p>
+                </div>
+                <div class="member-stats">
+                    <div class="stat-badge stat-badge-success">
+                        <span class="badge-label">3 Tasks</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-member">
+                <div class="member-avatar">AM</div>
+                <div class="member-info">
+                    <h4 class="member-name">Alex Martinez</h4>
+                    <p class="member-role">Full Stack Developer</p>
+                </div>
+                <div class="member-stats">
+                    <div class="stat-badge stat-badge-warning">
+                        <span class="badge-label">7 Tasks</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-member">
+                <div class="member-avatar">RP</div>
+                <div class="member-info">
+                    <h4 class="member-name">Raj Patel</h4>
+                    <p class="member-role">Backend Developer</p>
+                </div>
+                <div class="member-stats">
+                    <div class="stat-badge stat-badge-success">
+                        <span class="badge-label">4 Tasks</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 5 -->
+            <div class="team-member">
+                <div class="member-avatar">LM</div>
+                <div class="member-info">
+                    <h4 class="member-name">Lisa Moore</h4>
+                    <p class="member-role">QA Engineer</p>
+                </div>
+                <div class="member-stats">
+                    <div class="stat-badge stat-badge-success">
+                        <span class="badge-label">2 Tasks</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 6 -->
+            <div class="team-member">
+                <div class="member-avatar">TK</div>
+                <div class="member-info">
+                    <h4 class="member-name">Tom Kim</h4>
+                    <p class="member-role">DevOps Engineer</p>
+                </div>
+                <div class="member-stats">
+                    <div class="stat-badge stat-badge-success">
+                        <span class="badge-label">3 Tasks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gantt Chart Section -->
+<div class="dashboard-section gantt-section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="section-icon">📊</span>
+            Project Timeline
+        </h2>
+        <div class="gantt-controls">
+            <button class="btn-control active">Month</button>
+            <button class="btn-control">Quarter</button>
+            <button class="btn-control">Year</button>
+        </div>
+    </div>
+    <div class="gantt-chart">
+        <!-- Gantt Chart Header -->
+        <div class="gantt-header">
+            <div class="gantt-projects-col">Projects</div>
+            <div class="gantt-timeline">
+                <div class="timeline-month">January 2026</div>
+                <div class="timeline-month">February 2026</div>
+                <div class="timeline-month">March 2026</div>
+                <div class="timeline-month">April 2026</div>
+            </div>
+        </div>
+
+        <!-- Gantt Chart Body -->
+        <div class="gantt-body">
+            <!-- Project 1 Timeline -->
+            <div class="gantt-row">
+                <div class="gantt-project-info">
+                    <div class="gantt-project-name">E-Commerce Platform Redesign</div>
+                    <div class="gantt-project-team">8 members</div>
+                </div>
+                <div class="gantt-timeline-row">
+                    <div class="gantt-bar gantt-bar-primary" style="left: 10%; width: 50%">
+                        <span class="gantt-bar-label">65% Complete</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 Timeline -->
+            <div class="gantt-row">
+                <div class="gantt-project-info">
+                    <div class="gantt-project-name">Mobile App Development</div>
+                    <div class="gantt-project-team">6 members</div>
+                </div>
+                <div class="gantt-timeline-row">
+                    <div class="gantt-bar gantt-bar-success" style="left: 25%; width: 55%">
+                        <span class="gantt-bar-label">42% Complete</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 Timeline -->
+            <div class="gantt-row">
+                <div class="gantt-project-info">
+                    <div class="gantt-project-name">API Integration Service</div>
+                    <div class="gantt-project-team">4 members</div>
+                </div>
+                <div class="gantt-timeline-row">
+                    <div class="gantt-bar gantt-bar-warning" style="left: 5%; width: 35%">
+                        <span class="gantt-bar-label">28% Complete</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 Timeline -->
+            <div class="gantt-row">
+                <div class="gantt-project-info">
+                    <div class="gantt-project-name">Database Migration</div>
+                    <div class="gantt-project-team">3 members</div>
+                </div>
+                <div class="gantt-timeline-row">
+                    <div class="gantt-bar gantt-bar-info" style="left: 40%; width: 30%">
+                        <span class="gantt-bar-label">15% Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Task Modal -->
+<div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createTaskModalLabel">Create New Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createTaskForm">
+                    <div class="form-group">
+                        <label class="form-label">Task Title</label>
+                        <input type="text" class="form-control" placeholder="Enter task title" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter task description"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Project</label>
+                                <select class="form-control">
+                                    <option>E-Commerce Platform Redesign</option>
+                                    <option>Mobile App Development</option>
+                                    <option>API Integration Service</option>
+                                    <option>Database Migration</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Assign To</label>
+                                <select class="form-control">
+                                    <option>John Doe</option>
+                                    <option>Sarah Khan</option>
+                                    <option>Alex Martinez</option>
+                                    <option>Raj Patel</option>
+                                    <option>Lisa Moore</option>
+                                    <option>Tom Kim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select class="form-control">
+                                    <option>Low</option>
+                                    <option>Medium</option>
+                                    <option selected>High</option>
+                                    <option>Critical</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Due Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Create Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Project Modal -->
+<div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createProjectModalLabel">Create New Project</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createProjectForm">
+                    <div class="form-group">
+                        <label class="form-label">Project Name</label>
+                        <input type="text" class="form-control" placeholder="Enter project name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Project Code</label>
+                        <input type="text" class="form-control" placeholder="PRJ-2024-XXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter project description"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Team Members</label>
+                        <select class="form-control" multiple size="6">
+                            <option>John Doe</option>
+                            <option>Sarah Khan</option>
+                            <option>Alex Martinez</option>
+                            <option>Raj Patel</option>
+                            <option>Lisa Moore</option>
+                            <option>Tom Kim</option>
+                        </select>
+                        <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple members</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Create Project</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/manager-dashboard.css" asp-append-version="true" />
+}
