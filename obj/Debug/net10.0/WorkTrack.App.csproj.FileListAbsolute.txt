@@ -440,3 +440,4 @@ D:\Projects\WorkTrack.App\obj\Debug\net10.0\compressed\fat5rrfazq-{0}-r5szqg9iie
 D:\Projects\WorkTrack.App\obj\Debug\net10.0\compressed\x6drnuya75-{0}-31s1zjkdyd-31s1zjkdyd.gz
 D:\Projects\WorkTrack.App\obj\Debug\net10.0\compressed\8min9toa1t-{0}-31s1zjkdyd-31s1zjkdyd.gz
 D:\Projects\WorkTrack.App\obj\Debug\net10.0\compressed\xytou0mp8b-{0}-8hkza6rb3h-8hkza6rb3h.gz
+D:\Projects\WorkTrack.App\obj\Debug\net10.0\WorkTrack.App.sourcelink.json

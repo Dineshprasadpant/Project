@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "D:\\Projects\\WorkTrack.App\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\wwwroot\\css\\auth.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:wwwroot\\css\\auth.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\views\\manager\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:views\\manager\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,12 +43,90 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-13T10:20:26.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Auth.css",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\wwwroot\\css\\Auth.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\Auth.css",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\wwwroot\\css\\Auth.css",
+              "RelativeToolTip": "wwwroot\\css\\Auth.css",
+              "ViewState": "AgIAANkBAAAAAAAAAAAAANkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-13T10:16:14.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Views\\Manager\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "Views\\Manager\\Dashboard.cshtml",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Views\\Manager\\Dashboard.cshtml",
+              "RelativeToolTip": "Views\\Manager\\Dashboard.cshtml",
+              "ViewState": "AgIAANgBAAAAAAAAAAAAAPABAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T10:12:46.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmployeeController.cs",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Controllers\\EmployeeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeeController.cs",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Controllers\\EmployeeController.cs",
+              "RelativeToolTip": "Controllers\\EmployeeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T10:12:33.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T10:12:34.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Controllers\\AdminController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T10:12:31.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ManagerController.cs",
               "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Controllers\\ManagerController.cs",
               "RelativeDocumentMoniker": "Controllers\\ManagerController.cs",
               "ToolTip": "D:\\Projects\\WorkTrack.App\\Controllers\\ManagerController.cs",
               "RelativeToolTip": "Controllers\\ManagerController.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAABMAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-08T16:33:25.829Z",
               "EditorCaption": ""

@@ -1,8 +1,4 @@
-/* ========================================
-   WorkTrack - Professional Task Management
-   ======================================== */
 
-/* Root Variables */
 :root {
     --primary-color: #2563eb;
     --primary-dark: #1e40af;
@@ -24,7 +20,6 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -49,7 +44,6 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styles */
 .site-header {
     background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
     box-shadow: var(--shadow-lg);
@@ -92,7 +86,6 @@ body {
     background-clip: text;
 }
 
-/* Navigation Links */
 .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 0.85) !important;
     font-weight: 500;
@@ -122,7 +115,6 @@ body {
     opacity: 0.9;
 }
 
-/* User Navigation */
 .user-nav {
     align-items: center;
     gap: 0.5rem;
@@ -181,7 +173,7 @@ body {
     line-height: 1;
 }
 
-/* Dropdown Menu */
+
 .user-dropdown-menu {
     min-width: 280px;
     padding: 0.5rem;
@@ -255,7 +247,7 @@ body {
         color: var(--danger-color);
     }
 
-/* Auth Buttons (Login/Register) */
+
 .btn-link-nav {
     color: rgba(255, 255, 255, 0.85) !important;
     font-weight: 500;
@@ -278,7 +270,6 @@ body {
     font-size: 1rem;
 }
 
-/* Main Content */
 .main-content {
     flex: 1;
     padding: 2rem 0;
@@ -293,7 +284,6 @@ body {
     min-height: 400px;
 }
 
-/* Footer Styles */
 .site-footer {
     background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
     color: rgba(255, 255, 255, 0.8);
@@ -356,8 +346,6 @@ body {
         color: var(--primary-light);
         text-decoration: none;
     }
-
-/* Buttons */
 .btn-primary {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
     border: none;
@@ -375,7 +363,6 @@ body {
         background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
     }
 
-/* Links */
 a {
     color: var(--primary-color);
     text-decoration: none;
@@ -386,8 +373,6 @@ a {
         color: var(--primary-dark);
         text-decoration: none;
     }
-
-/* Responsive Design */
 @media (max-width: 991.98px) {
     .footer-content {
         flex-direction: column;
@@ -430,7 +415,6 @@ a {
     }
 }
 
-/* Additional Utility Classes */
 .box-shadow {
     box-shadow: var(--shadow-md);
 }
@@ -443,7 +427,6 @@ a {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Navbar Toggler (Mobile) */
 .navbar-toggler {
     border: none;
     padding: 0.5rem;
