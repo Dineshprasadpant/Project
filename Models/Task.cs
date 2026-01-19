@@ -10,6 +10,13 @@ namespace WorkTrack.App.Models
         High,
         Critical
     }
+    public enum TasksStatus
+    {
+        Completed,
+        InProgress,
+        Pending,
+        
+    }
     public class TasksItem
     {
         [Key]
@@ -44,7 +51,7 @@ namespace WorkTrack.App.Models
         public TaskPriority Priority { get; set; }
 
         [Required]
-        public TaskStatus Status { get; set; }
+        public TasksStatus Status { get; set; }
 
         [Required]
         public DateTime DueDate { get; set; }

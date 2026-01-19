@@ -18,8 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Manager\" />
     <Folder Include="Views\Employee\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Dto\AdminDashboardVM.cs" />
   </ItemGroup>
 
 </Project>

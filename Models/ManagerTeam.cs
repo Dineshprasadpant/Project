@@ -23,6 +23,8 @@ namespace WorkTrack.App.Models
         public ApplicationUser? Employee { get; set; }
 
         public DateTime AssignedDate { get; set; } = DateTime.UtcNow;
+        public ApplicationUser TeamMember { get; set; }
+
     }
 }
 

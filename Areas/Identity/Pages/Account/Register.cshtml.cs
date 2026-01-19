@@ -92,12 +92,15 @@ namespace WorkTrack.App.Areas.Identity.Pages.Account
 
                 var user = CreateUser();
 
-                // CORRECT: Set properties properly
-                user.FullName = Input.Name;           // Your custom property
-                user.Email = Input.Email;         // Email property
-                user.UserName = Input.Email;      // Username should be email
+                // Set properties properly
+                user.FullName = Input.Name;
+                user.Email = Input.Email;
+                user.UserName = Input.Email;
                 user.PhoneNumber = Input.PhoneNumber;
-                user.EmailConfirmed = true;       // Important: Set to true to skip email confirmation
+                user.EmailConfirmed = true;
+
+                // ADD THIS: Always set Position to "Employee" for new registrations
+                user.Position = "Employee"; // This is the critical line
 
                 // This sets the username (which is email)
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -130,7 +133,6 @@ namespace WorkTrack.App.Areas.Identity.Pages.Account
             }
             return Page();
         }
-
 
         private ApplicationUser CreateUser()
         {

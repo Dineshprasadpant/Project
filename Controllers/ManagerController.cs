@@ -1,35 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WorkTrack.App.Data;
+using WorkTrack.App.Models;
+using WorkTrack.App.Services;
 
-namespace WorkTrack.App.Controllers
-{
+[Authorize(Roles ="Manager")]
 public class ManagerController : Controller
 {
-    public readonly ApplicationDbContext _context;
-    public ManagerController(ApplicationDbContext context)
+    private readonly IManagerDashboardService _dashboardService;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public ManagerController(IManagerDashboardService dashboardService, UserManager<ApplicationUser> userManager)
     {
-        _context = context;
+        _dashboardService = dashboardService;
+        _userManager = userManager;
     }
-    /*
-    - GetProjects() - JSON for projects
-    - GetTeamMembers() - JSON for team
-    - CreateTask(TaskViewModel model)
-    - CreateProject(ProjectViewModel model)
-    - GetGanttData() - JSON for timeline
-    - GetStatistics() - JSON for stats cards
-     */
-    public IActionResult Dashboard()
+
+    public async Task<IActionResult> Dashboard()
     {
-        return View();
+        var userId = _userManager.GetUserId(User);
+        var vm = await _dashboardService.GetDashboardData(userId);
+        return View(vm);
     }
-    /* [Authorize]
-    public Task<IActionResult> GetProjects(int id)
-     {
 
-         return View();
-
-     }*/
 }
-}
-

@@ -11,10 +11,6 @@ namespace WorkTrack.App.Data
             : base(options)
         {
         }
-
-        // =======================
-        // DbSet Properties
-        // =======================
         public DbSet<Project> Projects { get; set; } = null!;
         public DbSet<TasksItem> Tasks { get; set; } = null!;
         public DbSet<ProjectMember> ProjectMembers { get; set; } = null!;
@@ -26,9 +22,8 @@ namespace WorkTrack.App.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // =======================
-            // Project
-            // =======================
+       
+
             modelBuilder.Entity<Project>()
                 .HasIndex(p => p.ProjectCode)
                 .IsUnique();
@@ -107,6 +102,7 @@ namespace WorkTrack.App.Data
                 .WithMany()
                 .HasForeignKey(mt => mt.EmployeeId)
                 .OnDelete(DeleteBehavior.Restrict);
-        }
+        
+    }
     }
 }

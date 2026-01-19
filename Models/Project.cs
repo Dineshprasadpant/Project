@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Build.Utilities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkTrack.App.Models
 {
     public enum ProjectStatus
     {
-        Active,
         AtRisk,
+        Active,
         Completed,
         OnHold
     }
@@ -47,5 +48,8 @@ namespace WorkTrack.App.Models
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         public DateTime? ModifiedDate { get; set; }
+        public ICollection<TasksItem> Tasks { get; set; } = new List<TasksItem>();
+
+        public ICollection<ProjectMember> Members { get; set; }  // maybe it's called Members
     }
 }

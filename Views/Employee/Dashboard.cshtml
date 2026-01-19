@@ -1,6 +1,67 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Hello Employee</h1>
+﻿@model WorkTrack.App.Dto.EmployeeDashboardVM
+
+<h2>My Projects</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Code</th>
+            <th>Manager</th>
+            <th>End Date</th>
+            <th>Progress</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Projects)
+        {
+            <tr>
+                <td>@p.ProjectName</td>
+                <td>@p.ProjectCode</td>
+                <td>@p.ManagerName</td>
+                <td>@p.EndDate?.ToString("yyyy-MM-dd")</td>
+                <td>@p.Progress %</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>My Tasks</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Project</th>
+            <th>Manager</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Change Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model.Tasks)
+        {
+            <tr>
+                <td>@t.TaskTitle</td>
+                <td>@t.ProjectName</td>
+                <td>@t.ManagerName</td>
+                <td>@t.Status</td>
+                <td>@t.DueDate?.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <form asp-action="UpdateTaskStatus" method="post">
+                        <input type="hidden" name="taskId" value="@t.TaskId" />
+                        <select name="status" class="form-select">
+                            @foreach (var s in Enum.GetValues(typeof(WorkTrack.App.Models.TasksStatus)))
+                            {
+                                <option value="@s" selected="@(s.Equals(t.Status) ? "selected" : null)">
+                                    @s
+                                </option>
+
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

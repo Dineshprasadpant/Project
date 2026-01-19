@@ -1,6 +1,568 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WorkTrack.App.Dto.AdminDashboardVM
 @{
+    ViewData["Title"] = "Admin Dashboard";
 }
-<h1>Hello admin</h1>
+
+<div class="container-fluid py-4">
+    <h1 class="mb-4">Admin Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Employees</h5>
+                    <h2>@Model.Employees.Count</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Managers</h5>
+                    <h2>@Model.Managers.Count</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Active Projects</h5>
+                    <h2>@Model.Projects.Count(p => p.Status == WorkTrack.App.Models.ProjectStatus.Active)</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="employees-tab" data-bs-toggle="tab" href="#employees" role="tab">Employees</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">Projects</a>
+        </li>
+    </ul>
+
+    <div class="tab-content p-3 border border-top-0" id="adminTabContent">
+        <!-- Employees Tab -->
+        <div class="tab-pane fade show active" id="employees" role="tabpanel">
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Employee Management</h4>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
+                    <i class="bi bi-plus-circle"></i> Add Employee
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Current Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <tr>
+                                <td>@employee.FullName</td>
+                                <td>@employee.Email</td>
+                                <td>@(employee.PhoneNumber ?? "N/A")</td>
+                                <td>
+                                    <span class="badge bg-secondary" id="role-@employee.Id">@employee.Role</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" onclick="openChangeRoleModal('@employee.Id', '@employee.FullName')">
+                                        Change Role
+                                    </button>
+                                    <button class="btn btn-sm btn-info" onclick="openEditEmployeeModal('@employee.Id', '@employee.FullName', '@employee.Email', '@employee.PhoneNumber')">
+                                        Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div class="tab-pane fade" id="projects" role="tabpanel">
+            <div class="d-flex justify-content-between mb-3">
+                <h4>Project Management</h4>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+                    <i class="bi bi-plus-circle"></i> Create Project
+                </button>
+            </div>
+
+            <div class="row">
+                @foreach (var project in Model.Projects)
+                {
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">@project.Name</h5>
+                                <span class="badge
+                                        @(project.Status == WorkTrack.App.Models.ProjectStatus.Active ? "bg-success" :
+                                                                            project.Status == WorkTrack.App.Models.ProjectStatus.Completed ? "bg-primary" :
+                                                                            project.Status == WorkTrack.App.Models.ProjectStatus.OnHold ? "bg-warning" : "bg-danger")">
+                                    @project.Status
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted small mb-2">Code: @project.Code</p>
+                                <p class="mb-2">@project.Description</p>
+                                <p class="mb-2"><strong>Manager:</strong> @project.ManagerName</p>
+                                <p class="mb-2"><strong>Due Date:</strong> @project.DueDate?.ToString("MMM dd, yyyy")</p>
+
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Progress</span>
+                                        <span>@project.Progress%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: @project.Progress%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <strong>Team:</strong>
+                                    <div class="d-flex gap-1 mt-1">
+                                        @foreach (var initials in project.TeamInitials)
+                                        {
+                                            <span class="badge bg-secondary">@initials</span>
+                                        }
+                                        @if (project.TeamInitials.Count == 0)
+                                        {
+                                            <span class="text-muted">No members</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <div class="btn-group w-100" role="group">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="openUpdateProjectModal(@project.Id, '@project.Name', @((int)project.Status), @project.Progress)">
+                                        Update
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteProject(@project.Id, '@project.Name')">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="addFullName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="addEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="addPhone">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="addEmployee()">Add Employee</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Employee Modal -->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEmployeeForm">
+                    <input type="hidden" id="editEmployeeId">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="editFullName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="editPhone">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="updateEmployee()">Update Employee</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Role Modal -->
+<div class="modal fade" id="changeRoleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change User Role</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Change role for: <strong id="roleUserName"></strong></p>
+                <input type="hidden" id="roleUserId">
+                <div class="mb-3">
+                    <label class="form-label">Select Role</label>
+                    <select class="form-select" id="roleSelect">
+                        <option value="Employee">Employee</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="changeRole()">Change Role</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Project Modal -->
+<div class="modal fade" id="createProjectModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Project</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createProjectForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="projectName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Project Code</label>
+                            <input type="text" class="form-control" id="projectCode" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="projectDescription" rows="3"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Manager</label>
+                            <select class="form-select" id="projectManager" required>
+                                <option value="">Select Manager</option>
+                                @foreach (var manager in Model.Managers)
+                                {
+                                    <option value="@manager.Id">@manager.FullName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="projectEndDate" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Team Members</label>
+                        <select multiple class="form-select" id="projectMembers" size="5">
+                            @foreach (var employee in Model.Employees)
+                            {
+                                <option value="@employee.Id">@employee.FullName (@employee.Email)</option>
+                            }
+                        </select>
+                        <small class="text-muted">Hold Ctrl/Cmd to select multiple members</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="createProject()">Create Project</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Project Modal -->
+<div class="modal fade" id="updateProjectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Project</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Update: <strong id="updateProjectName"></strong></p>
+                <input type="hidden" id="updateProjectId">
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="updateStatus">
+                        <option value="0">Active</option>
+                        <option value="1">On Hold</option>
+                        <option value="2">Completed</option>
+                        <option value="3">Cancelled</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Progress (%)</label>
+                    <input type="number" class="form-control" id="updateProgress" min="0" max="100" step="1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="updateProject()">Update Project</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Add Employee
+        function addEmployee() {
+            const data = {
+                fullName: document.getElementById('addFullName').value,
+                email: document.getElementById('addEmail').value,
+                phoneNumber: document.getElementById('addPhone').value
+            };
+
+            fetch('/Admin/AddOrUpdateEmployee', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Employee added successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to add employee');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+
+        // Edit Employee Modal
+        function openEditEmployeeModal(id, name, email, phone) {
+            document.getElementById('editEmployeeId').value = id;
+            document.getElementById('editFullName').value = name;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editPhone').value = phone || '';
+            new bootstrap.Modal(document.getElementById('editEmployeeModal')).show();
+        }
+
+        // Update Employee
+        function updateEmployee() {
+            const data = {
+                id: document.getElementById('editEmployeeId').value,
+                fullName: document.getElementById('editFullName').value,
+                email: document.getElementById('editEmail').value,
+                phoneNumber: document.getElementById('editPhone').value
+            };
+
+            fetch('/Admin/AddOrUpdateEmployee', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Employee updated successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to update employee');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+
+        // Change Role Modal
+        function openChangeRoleModal(userId, userName) {
+            document.getElementById('roleUserId').value = userId;
+            document.getElementById('roleUserName').textContent = userName;
+            new bootstrap.Modal(document.getElementById('changeRoleModal')).show();
+        }
+
+        // Change Role
+        function changeRole() {
+            const data = {
+                userId: document.getElementById('roleUserId').value,
+                role: document.getElementById('roleSelect').value
+            };
+
+            fetch('/Admin/ChangeRole', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Role changed successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to change role');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+
+        // Create Project
+        function createProject() {
+            const memberSelect = document.getElementById('projectMembers');
+            const selectedMembers = Array.from(memberSelect.selectedOptions).map(option => option.value);
+
+            const projectName = document.getElementById('projectName').value;
+            const projectCode = document.getElementById('projectCode').value;
+            const managerId = document.getElementById('projectManager').value;
+            const endDate = document.getElementById('projectEndDate').value;
+
+            // Validation
+            if (!projectName || !projectCode || !managerId || !endDate) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            const data = {
+                projectName: projectName,
+                projectCode: projectCode,
+                description: document.getElementById('projectDescription').value,
+                managerId: managerId,
+                endDate: endDate,
+                memberIds: selectedMembers
+            };
+
+            console.log('Creating project with data:', data);
+
+            fetch('/Admin/CreateProject', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message || 'Failed to create project');
+                    });
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('Project creation result:', result);
+                if (result.success) {
+                    alert(result.message || 'Project created successfully!');
+                    location.reload();
+                } else {
+                    alert(result.message || 'Failed to create project');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+            });
+        }
+
+        // Update Project Modal
+        function openUpdateProjectModal(id, name, status, progress) {
+            document.getElementById('updateProjectId').value = id;
+            document.getElementById('updateProjectName').textContent = name;
+            document.getElementById('updateStatus').value = status;
+            document.getElementById('updateProgress').value = progress;
+            new bootstrap.Modal(document.getElementById('updateProjectModal')).show();
+        }
+
+        // Update Project
+        function updateProject() {
+            const data = {
+                projectId: parseInt(document.getElementById('updateProjectId').value),
+                status: parseInt(document.getElementById('updateStatus').value),
+                progress: parseFloat(document.getElementById('updateProgress').value)
+            };
+
+            fetch('/Admin/UpdateProject', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Project updated successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to update project');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+
+        // Delete Project
+        function deleteProject(id, name) {
+            if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
+
+            fetch('/Admin/DeleteProject', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ projectId: id })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Project deleted successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to delete project');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+    </script>
+}
