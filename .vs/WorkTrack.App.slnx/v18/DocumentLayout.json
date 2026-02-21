@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "D:\\Projects\\WorkTrack.App\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\services\\admindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:services\\admindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\services\\iadmindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:services\\iadmindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\dto\\admindashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:dto\\admindashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\services\\iadmindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:services\\iadmindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\dto\\employeedashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:dto\\employeedashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|d:\\projects\\worktrack.app\\services\\admindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053CAA95-7FC2-45C6-4341-055174A5104E}|WorkTrack.App.csproj|solutionrelative:services\\admindashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,45 +43,84 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-19T13:24:07.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-19T13:14:47.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\Projects\\WorkTrack.App\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAAEQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-19T13:13:05.694Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "AdminDashboardService.cs",
               "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Services\\AdminDashboardService.cs",
               "RelativeDocumentMoniker": "Services\\AdminDashboardService.cs",
               "ToolTip": "D:\\Projects\\WorkTrack.App\\Services\\AdminDashboardService.cs",
               "RelativeToolTip": "Services\\AdminDashboardService.cs",
-              "ViewState": "AgIAAFEBAAAAAAAAAAAgwG0BAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACgBAAAAAAAAAAAYwG0BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-14T03:51:25.195Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "EmployeeDashboardVM.cs",
               "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Dto\\EmployeeDashboardVM.cs",
               "RelativeDocumentMoniker": "Dto\\EmployeeDashboardVM.cs",
               "ToolTip": "D:\\Projects\\WorkTrack.App\\Dto\\EmployeeDashboardVM.cs",
               "RelativeToolTip": "Dto\\EmployeeDashboardVM.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAA2wAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAywB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-14T03:40:39.801Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AdminDashboardVM.cs",
               "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Dto\\AdminDashboardVM.cs",
               "RelativeDocumentMoniker": "Dto\\AdminDashboardVM.cs",
               "ToolTip": "D:\\Projects\\WorkTrack.App\\Dto\\AdminDashboardVM.cs",
               "RelativeToolTip": "Dto\\AdminDashboardVM.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAADwv0AAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAwwEAAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-14T03:11:20.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "IAdminDashboardService.cs",
               "DocumentMoniker": "D:\\Projects\\WorkTrack.App\\Services\\IAdminDashboardService.cs",
               "RelativeDocumentMoniker": "Services\\IAdminDashboardService.cs",

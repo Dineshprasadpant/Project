@@ -1,103 +1,117 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="h-full">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WorkTrack</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WorkTrack.App.styles.css" asp-append-version="true" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <svg class="brand-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="4" y="4" width="24" height="24" rx="4" fill="currentColor" opacity="0.2" />
-                        <path d="M10 16L14 20L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span class="brand-text">WorkTrack</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
-                        aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarMain">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Manager" asp-action="Dashboard">
-                                <i class="nav-icon">📊</i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="Index">
-                                <i class="nav-icon">✓</i> Tasks
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">
-                                <i class="nav-icon">📁</i> Projects
-                            </a>
-                        </li>
-                        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="Index">
-                                    <i class="nav-icon">📈</i> Reports
-                                </a>
-                            </li>
-                        }
+<body class="flex flex-col h-full bg-slate-50 font-sans text-slate-900">
+
+    <nav class="bg-[#1e293b] text-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a asp-controller="Home" asp-action="Index" class="flex items-center gap-2 no-underline text-white">
+                        <div class="bg-blue-500 p-1.5 rounded-lg">
+                            <i class="fas fa-check text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">WorkTrack</span>
+                    </a>
+
+                    <div class="hidden md:ml-8 md:flex md:space-x-4">
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">
-                                    <i class="nav-icon">⚙️</i> Admin
-                                </a>
-                            </li>
+                            <a asp-controller="Admin" asp-action="Dashboard" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition no-underline">
+                                <i class="fas fa-th-large mr-1.5 opacity-70"></i> Admin
+                            </a>
+                            <a asp-controller="Manager" asp-action="Dashboard" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition no-underline">
+                                <i class="fas fa-tasks mr-1.5 opacity-70"></i> Tasks
+                            </a>
                         }
-                    </ul>
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <a asp-controller="Manager" asp-action="Dashboard" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition no-underline">
+                                <i class="fas fa-th-large mr-1.5 opacity-70"></i> Dashboard
+                            </a>
+                        }
+                        @if (User.IsInRole("Employee"))
+                        {
+                            <a asp-controller="Employee" asp-action="Dashboard" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition no-underline">
+                                <i class="fas fa-tasks mr-1.5 opacity-70"></i> My Dashboard
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center">
                     <partial name="_LoginPartial" />
                 </div>
+
+                <div class="flex items-center md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-        </nav>
-    </header>
-
-    <div class="main-content">
-        <div class="container-fluid">
-            <main role="main" class="content-wrapper">
-                @RenderBody()
-            </main>
         </div>
-    </div>
 
-    <footer class="site-footer">
-        <div class="container-fluid">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <span class="footer-brand">WorkTrack</span>
-                    <span class="footer-separator">|</span>
-                    <span class="footer-text">Task Management System</span>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 px-2 pt-2 pb-3 space-y-1 border-t border-slate-700">
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Admin" asp-action="Dashboard" class="block px-3 py-2 rounded-md text-base font-medium text-white no-underline">Admin</a>
+                <a asp-controller="Manager" asp-action="Dashboard" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 no-underline">Tasks</a>
+            }
+            @if (User.IsInRole("Manager"))
+            {
+                <a asp-controller="Manager" asp-action="Dashboard" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 no-underline">Dashboard</a>
+            }
+            @if (User.IsInRole("Employee"))
+            {
+                <a asp-controller="Employee" asp-action="Dashboard" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 no-underline">My Dashboard</a>
+            }
+            <div class="pt-4 pb-1 border-t border-slate-700 mt-2">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center space-x-2">
+                    <span class="text-white font-bold text-lg">WorkTrack</span>
+                    <span class="text-slate-700">|</span>
+                    <span class="text-sm">Task Management System</span>
                 </div>
-                <div class="footer-center">
-                    <span class="footer-copyright">&copy; 2026 WorkTrack. All rights reserved.</span>
-                </div>
-                <div class="footer-right">
-                    <a class="footer-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
-                    <span class="footer-separator">•</span>
-                    <a class="footer-link" asp-area="" asp-controller="Home" asp-action="Terms">Terms of Service</a>
-                    <span class="footer-separator">•</span>
-                    <a class="footer-link" asp-area="" asp-controller="Home" asp-action="Support">Support</a>
+
+                <p class="text-sm">&copy; 2026 WorkTrack. All rights reserved.</p>
+
+                <div class="flex space-x-6 text-sm">
+                    <a asp-controller="Home" asp-action="Privacy" class="hover:text-white transition no-underline">Privacy</a>
+                    <a asp-controller="Home" asp-action="Terms" class="hover:text-white transition no-underline">Terms</a>
+                    <a asp-controller="Home" asp-action="Support" class="hover:text-white transition no-underline">Support</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WorkTrack.App.Data;
 using WorkTrack.App.Dto;
 using WorkTrack.App.Models;
-using WorkTrack.App.Dto;
+
 namespace WorkTrack.App.Services
 {
     public class EmployeeDashboardService : IEmployeeDashboardService
@@ -55,16 +55,23 @@ namespace WorkTrack.App.Services
                 DueDate = t.DueDate
             }).ToList();
 
+            data.TotalTasks = data.Tasks.Count;
+            data.CompletedTasks = data.Tasks.Count(x => x.Status == TasksStatus.Completed);
+            data.PendingTasks = data.Tasks.Count(x => x.Status == TasksStatus.Pending);
+            data.InProgressTasks = data.Tasks.Count(x => x.Status == TasksStatus.InProgress);
+
             return data;
         }
 
-        public async Task<bool> UpdateTaskStatus(int taskId, TasksStatus status)
+        public async Task<bool> UpdateTaskStatus(int taskId, TasksStatus status, string userId)
         {
             var task = await _db.Tasks.FindAsync(taskId);
             if (task == null) return false;
+            if (task.AssignedToId != userId)
+                return false;
 
             task.Status = status;
-
+            task.ModifiedDate = DateTime.UtcNow;
             if (status == TasksStatus.Completed)
                 task.CompletedDate = DateTime.UtcNow;
 

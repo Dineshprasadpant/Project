@@ -1,67 +1,95 @@
-﻿@model WorkTrack.App.Dto.EmployeeDashboardVM
+@model WorkTrack.App.Dto.EmployeeDashboardVM
 
-<h2>My Projects</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Project Name</th>
-            <th>Code</th>
-            <th>Manager</th>
-            <th>End Date</th>
-            <th>Progress</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var p in Model.Projects)
-        {
-            <tr>
-                <td>@p.ProjectName</td>
-                <td>@p.ProjectCode</td>
-                <td>@p.ManagerName</td>
-                <td>@p.EndDate?.ToString("yyyy-MM-dd")</td>
-                <td>@p.Progress %</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@{
+    ViewData["Title"] = "My Dashboard";
+}
 
-<h2>My Tasks</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Task</th>
-            <th>Project</th>
-            <th>Manager</th>
-            <th>Status</th>
-            <th>Due Date</th>
-            <th>Change Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var t in Model.Tasks)
-        {
-            <tr>
-                <td>@t.TaskTitle</td>
-                <td>@t.ProjectName</td>
-                <td>@t.ManagerName</td>
-                <td>@t.Status</td>
-                <td>@t.DueDate?.ToString("yyyy-MM-dd")</td>
-                <td>
-                    <form asp-action="UpdateTaskStatus" method="post">
-                        <input type="hidden" name="taskId" value="@t.TaskId" />
-                        <select name="status" class="form-select">
-                            @foreach (var s in Enum.GetValues(typeof(WorkTrack.App.Models.TasksStatus)))
-                            {
-                                <option value="@s" selected="@(s.Equals(t.Status) ? "selected" : null)">
-                                    @s
-                                </option>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    <h1 class="text-2xl font-bold text-slate-900 mb-6">My Dashboard</h1>
 
-                            }
-                        </select>
-                        <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-blue-600 hover:shadow-lg hover:-translate-y-0.5 transition">
+            <div class="text-2xl font-bold text-slate-900">@Model.TotalTasks</div>
+            <p class="text-sm font-medium text-slate-500 mt-1">Total Tasks</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-emerald-500 hover:shadow-lg hover:-translate-y-0.5 transition">
+            <div class="text-2xl font-bold text-slate-900">@Model.CompletedTasks</div>
+            <p class="text-sm font-medium text-slate-500 mt-1">Completed</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-amber-500 hover:shadow-lg hover:-translate-y-0.5 transition">
+            <div class="text-2xl font-bold text-slate-900">@Model.InProgressTasks</div>
+            <p class="text-sm font-medium text-slate-500 mt-1">In Progress</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-slate-400 hover:shadow-lg hover:-translate-y-0.5 transition">
+            <div class="text-2xl font-bold text-slate-900">@Model.PendingTasks</div>
+            <p class="text-sm font-medium text-slate-500 mt-1">Pending</p>
+        </div>
+    </div>
+
+    <h2 class="text-lg font-bold text-slate-800 mb-3">My Projects</h2>
+    <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm mb-8">
+        <table class="min-w-full divide-y divide-slate-200">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Project Name</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Code</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Manager</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">End Date</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Progress</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                @foreach (var p in Model.Projects)
+                {
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-3 text-slate-900">@p.ProjectName</td>
+                        <td class="px-4 py-3 text-slate-600">@p.ProjectCode</td>
+                        <td class="px-4 py-3 text-slate-600">@p.ManagerName</td>
+                        <td class="px-4 py-3 text-slate-600">@p.EndDate?.ToString("yyyy-MM-dd")</td>
+                        <td class="px-4 py-3 font-semibold text-slate-700">@p.Progress %</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="text-lg font-bold text-slate-800 mb-3">My Tasks</h2>
+    <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+        <table class="min-w-full divide-y divide-slate-200">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Task</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Project</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Manager</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Status</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Due Date</th>
+                    <th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Change Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                @foreach (var t in Model.Tasks)
+                {
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-3 text-slate-900">@t.TaskTitle</td>
+                        <td class="px-4 py-3 text-slate-600">@t.ProjectName</td>
+                        <td class="px-4 py-3 text-slate-600">@t.ManagerName</td>
+                        <td class="px-4 py-3 text-slate-600">@t.Status</td>
+                        <td class="px-4 py-3 text-slate-600">@t.DueDate?.ToString("yyyy-MM-dd")</td>
+                        <td class="px-4 py-3">
+                            <form asp-action="UpdateTaskStatus" method="post" class="flex flex-wrap items-center gap-2">
+                                <input type="hidden" name="taskId" value="@t.TaskId" />
+                                <select name="status" class="rounded-lg border-2 border-slate-200 px-3 py-1.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none">
+                                    @foreach (var s in Enum.GetValues(typeof(WorkTrack.App.Models.TasksStatus)))
+                                    {
+                                        <option value="@s" selected="@(s.Equals(t.Status))">@s</option>
+                                    }
+                                </select>
+                                <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

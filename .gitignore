@@ -1,46 +1,39 @@
 # Visual Studio / .NET
 .vs/
+bin/
+obj/
+Debug/
+Release/
+
+# User-specific files
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-# Build results
-bin/
-obj/
-Debug/
-Release/
-x64/
-x86/
-
-# Visual Studio Code
-.vscode/
-
-# Rider
-.idea/
-
-# Dotnet files
-*.dbmdl
-*.dbproj.schemaview
-
-# ASP.NET / web files
-wwwroot/lib/
+# ASP.NET / Configuration
 appsettings.*.json
+secrets.json
 
-# NPM / Node.js (if using frontend packages)
+# Entity Framework
+Migrations/*Snapshot.cs
+
+# Node / Frontend
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+wwwroot/lib/
 
-# Publish output
-publish/
-*.publishsettings
-
-# JetBrains Rider
-.idea/
-*.sln.iml
-
-# Others
+# Logs and Temporary Files
 *.log
-*.vsconfig
+*.tmp
+
+# Publish Output
+publish/
+
+# IDE Specific
+.vscode/
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini

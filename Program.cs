@@ -15,11 +15,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false; // allow immediate login
+    options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequiredLength = 6;
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
 })
 .AddRoles<IdentityRole>()
@@ -29,7 +29,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IManagerDashboardService, ManagerDashboardService>();
 builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
 builder.Services.AddScoped<IEmployeeDashboardService, EmployeeDashboardService>();
-
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 builder.Services.AddRazorPages();
 

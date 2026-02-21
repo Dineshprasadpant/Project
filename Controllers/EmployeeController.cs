@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkTrack.App.Models;
@@ -25,11 +25,15 @@ public class EmployeeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdateTaskStatus(int taskId, TasksStatus status) 
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateTaskStatus(int taskId, TasksStatus status)
     {
-        var success = await _dashboardService.UpdateTaskStatus(taskId, status);
-        if (!success) return NotFound();
-
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrEmpty(userId))
+            return Unauthorized();
+        var success = await _dashboardService.UpdateTaskStatus(taskId, status, userId);
+        if (!success)
+            return NotFound();
         return RedirectToAction(nameof(Dashboard));
     }
 }

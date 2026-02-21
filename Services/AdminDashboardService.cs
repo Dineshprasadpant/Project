@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WorkTrack.App.Data;
 using WorkTrack.App.Dto;
@@ -28,20 +28,28 @@ namespace WorkTrack.App.Services
         public async Task<AdminDashboardVM> GetAdminDashboardData()
         {
             var data = new AdminDashboardVM();
+            var allUsers = await _userManager.Users.ToListAsync();
 
-            // Get all employees
-            data.Employees = await _userManager.Users.ToListAsync();
-
-            // Get managers
-            var managers = new List<ApplicationUser>();
-            foreach (var user in data.Employees)
+            var employeeVms = new List<AdminUserVM>();
+            var managerVms = new List<AdminUserVM>();
+            foreach (var user in allUsers)
             {
-                if (await _userManager.IsInRoleAsync(user, "Manager"))
+                var roles = await _userManager.GetRolesAsync(user);
+                var role = roles.FirstOrDefault() ?? "Employee";
+                var vm = new AdminUserVM
                 {
-                    managers.Add(user);
-                }
+                    Id = user.Id,
+                    FullName = user.FullName ?? user.UserName ?? "",
+                    Email = user.Email ?? "",
+                    Phone = user.PhoneNumber ?? "",
+                    Role = role
+                };
+                employeeVms.Add(vm);
+                if (role == "Manager" || role == "Admin")
+                    managerVms.Add(vm);
             }
-            data.Managers = managers;
+            data.Employees = employeeVms;
+            data.Managers = managerVms;
 
             // Get projects with members and manager details
             var projects = await _db.Projects
@@ -150,7 +158,8 @@ namespace WorkTrack.App.Services
                             _db.ProjectMembers.Add(new ProjectMember
                             {
                                 ProjectId = project.ProjectId,
-                                UserId = userId
+                                UserId = userId,
+                                Role = "Member"
                             });
                         }
                     }
@@ -289,6 +298,7 @@ namespace WorkTrack.App.Services
                     user.NormalizedUserName = user.Email.ToUpper();
                     user.EmailConfirmed = true;
 
+                    // TODO: In production, use a generated temporary password and require change on first login or send via email.
                     var result = await _userManager.CreateAsync(user, "DefaultPassword123!");
                     if (!result.Succeeded)
                     {

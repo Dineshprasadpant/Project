@@ -1,85 +1,74 @@
-﻿@model WorkTrack.App.Dto.AdminDashboardVM
+@model WorkTrack.App.Dto.AdminDashboardVM
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<div class="container-fluid py-4">
-    <h1 class="mb-4">Admin Dashboard</h1>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    <h1 class="text-2xl font-bold text-slate-900 mb-6">Admin Dashboard</h1>
 
     <!-- Stats Cards -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Employees</h5>
-                    <h2>@Model.Employees.Count</h2>
-                </div>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-blue-600 text-white rounded-xl p-5 shadow-lg">
+            <h5 class="text-sm font-medium opacity-90">Total Employees</h5>
+            <p class="text-3xl font-bold mt-1">@Model.Employees.Count</p>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Managers</h5>
-                    <h2>@Model.Managers.Count</h2>
-                </div>
-            </div>
+        <div class="bg-emerald-600 text-white rounded-xl p-5 shadow-lg">
+            <h5 class="text-sm font-medium opacity-90">Total Managers</h5>
+            <p class="text-3xl font-bold mt-1">@Model.Managers.Count</p>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Active Projects</h5>
-                    <h2>@Model.Projects.Count(p => p.Status == WorkTrack.App.Models.ProjectStatus.Active)</h2>
-                </div>
-            </div>
+        <div class="bg-cyan-600 text-white rounded-xl p-5 shadow-lg">
+            <h5 class="text-sm font-medium opacity-90">Active Projects</h5>
+            <p class="text-3xl font-bold mt-1">@Model.Projects.Count(p => p.Status == WorkTrack.App.Models.ProjectStatus.Active)</p>
         </div>
     </div>
 
     <!-- Tabs -->
-    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="employees-tab" data-bs-toggle="tab" href="#employees" role="tab">Employees</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">Projects</a>
-        </li>
-    </ul>
+    <div class="border-b border-slate-200 mb-4">
+        <nav class="flex gap-1" role="tablist">
+            <button type="button" onclick="switchTab('employees')" id="tab-employees" class="px-4 py-2.5 font-medium rounded-t-lg border-b-2 border-blue-600 text-blue-600 bg-slate-50 -mb-px">
+                Employees
+            </button>
+            <button type="button" onclick="switchTab('projects')" id="tab-projects" class="px-4 py-2.5 font-medium rounded-t-lg border-b-2 border-transparent text-slate-600 hover:text-slate-900 -mb-px">
+                Projects
+            </button>
+        </nav>
+    </div>
 
-    <div class="tab-content p-3 border border-top-0" id="adminTabContent">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
         <!-- Employees Tab -->
-        <div class="tab-pane fade show active" id="employees" role="tabpanel">
-            <div class="d-flex justify-content-between mb-3">
-                <h4>Employee Management</h4>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
-                    <i class="bi bi-plus-circle"></i> Add Employee
+        <div id="panel-employees" class="tab-panel">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
+                <h2 class="text-lg font-bold text-slate-900">Employee Management</h2>
+                <button type="button" onclick="showModal('addEmployeeModal')" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
+                    <i class="fas fa-plus-circle"></i> Add Employee
                 </button>
             </div>
-
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-800 text-white">
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Current Role</th>
-                            <th>Actions</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Name</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Email</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Phone</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Current Role</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-slate-200 bg-white">
                         @foreach (var employee in Model.Employees)
                         {
-                            <tr>
-                                <td>@employee.FullName</td>
-                                <td>@employee.Email</td>
-                                <td>@(employee.PhoneNumber ?? "N/A")</td>
-                                <td>
-                                    <span class="badge bg-secondary" id="role-@employee.Id">@employee.Role</span>
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-4 py-3 text-slate-900">@employee.FullName</td>
+                                <td class="px-4 py-3 text-slate-600">@employee.Email</td>
+                                <td class="px-4 py-3 text-slate-600">@(employee.Phone ?? "N/A")</td>
+                                <td class="px-4 py-3">
+                                    <span class="inline-flex rounded-full bg-slate-200 px-2.5 py-0.5 text-xs font-semibold text-slate-800" id="role-@employee.Id">@employee.Role</span>
                                 </td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning" onclick="openChangeRoleModal('@employee.Id', '@employee.FullName')">
+                                <td class="px-4 py-3 flex flex-wrap gap-2">
+                                    <button type="button" onclick="openChangeRoleModal('@employee.Id', '@employee.FullName')" class="inline-flex items-center px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded-lg transition">
                                         Change Role
                                     </button>
-                                    <button class="btn btn-sm btn-info" onclick="openEditEmployeeModal('@employee.Id', '@employee.FullName', '@employee.Email', '@employee.PhoneNumber')">
+                                    <button type="button" onclick="openEditEmployeeModal('@employee.Id', '@employee.FullName', '@employee.Email', '@(employee.Phone ?? "")')" class="inline-flex items-center px-3 py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium rounded-lg transition">
                                         Edit
                                     </button>
                                 </td>
@@ -91,68 +80,61 @@
         </div>
 
         <!-- Projects Tab -->
-        <div class="tab-pane fade" id="projects" role="tabpanel">
-            <div class="d-flex justify-content-between mb-3">
-                <h4>Project Management</h4>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProjectModal">
-                    <i class="bi bi-plus-circle"></i> Create Project
+        <div id="panel-projects" class="tab-panel hidden">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
+                <h2 class="text-lg font-bold text-slate-900">Project Management</h2>
+                <button type="button" onclick="showModal('createProjectModal')" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
+                    <i class="fas fa-plus-circle"></i> Create Project
                 </button>
             </div>
-
-            <div class="row">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach (var project in Model.Projects)
                 {
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">@project.Name</h5>
-                                <span class="badge
-                                        @(project.Status == WorkTrack.App.Models.ProjectStatus.Active ? "bg-success" :
-                                                                            project.Status == WorkTrack.App.Models.ProjectStatus.Completed ? "bg-primary" :
-                                                                            project.Status == WorkTrack.App.Models.ProjectStatus.OnHold ? "bg-warning" : "bg-danger")">
-                                    @project.Status
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <p class="text-muted small mb-2">Code: @project.Code</p>
-                                <p class="mb-2">@project.Description</p>
-                                <p class="mb-2"><strong>Manager:</strong> @project.ManagerName</p>
-                                <p class="mb-2"><strong>Due Date:</strong> @project.DueDate?.ToString("MMM dd, yyyy")</p>
-
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <span>Progress</span>
-                                        <span>@project.Progress%</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: @project.Progress%"></div>
-                                    </div>
+                    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex flex-col">
+                        <div class="bg-slate-800 text-white px-4 py-3 flex justify-between items-center">
+                            <h3 class="font-bold text-lg">@project.Name</h3>
+                            <span class="rounded-full px-2.5 py-0.5 text-xs font-semibold
+                                @(project.Status == WorkTrack.App.Models.ProjectStatus.Active ? "bg-emerald-500" :
+                                  project.Status == WorkTrack.App.Models.ProjectStatus.Completed ? "bg-blue-500" :
+                                  project.Status == WorkTrack.App.Models.ProjectStatus.OnHold ? "bg-amber-500" : "bg-red-500")">
+                                @project.Status
+                            </span>
+                        </div>
+                        <div class="p-4 flex-1">
+                            <p class="text-slate-500 text-sm mb-2">Code: @project.Code</p>
+                            <p class="text-slate-700 mb-2">@project.Description</p>
+                            <p class="text-sm mb-2"><strong>Manager:</strong> @project.ManagerName</p>
+                            <p class="text-sm mb-3"><strong>Due Date:</strong> @project.DueDate?.ToString("MMM dd, yyyy")</p>
+                            <div class="mb-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Progress</span>
+                                    <span class="font-semibold">@project.Progress%</span>
                                 </div>
-
-                                <div class="mb-3">
-                                    <strong>Team:</strong>
-                                    <div class="d-flex gap-1 mt-1">
-                                        @foreach (var initials in project.TeamInitials)
-                                        {
-                                            <span class="badge bg-secondary">@initials</span>
-                                        }
-                                        @if (project.TeamInitials.Count == 0)
-                                        {
-                                            <span class="text-muted">No members</span>
-                                        }
-                                    </div>
+                                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-600 rounded-full transition-all" style="width: @project.Progress%"></div>
                                 </div>
                             </div>
-                            <div class="card-footer bg-light">
-                                <div class="btn-group w-100" role="group">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="openUpdateProjectModal(@project.Id, '@project.Name', @((int)project.Status), @project.Progress)">
-                                        Update
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteProject(@project.Id, '@project.Name')">
-                                        Delete
-                                    </button>
+                            <div class="mb-3">
+                                <strong class="text-sm">Team:</strong>
+                                <div class="flex flex-wrap gap-1 mt-1">
+                                    @foreach (var initials in project.TeamInitials)
+                                    {
+                                        <span class="rounded-full bg-slate-200 px-2 py-0.5 text-xs font-semibold text-slate-700">@initials</span>
+                                    }
+                                    @if (project.TeamInitials.Count == 0)
+                                    {
+                                        <span class="text-slate-500 text-sm">No members</span>
+                                    }
                                 </div>
                             </div>
+                        </div>
+                        <div class="px-4 py-3 bg-slate-50 border-t border-slate-200 flex gap-2">
+                            <button type="button" onclick="openUpdateProjectModal(@project.Id, '@project.Name', @((int)project.Status), @project.Progress)" class="flex-1 py-2 px-3 border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition text-sm">
+                                Update
+                            </button>
+                            <button type="button" onclick="deleteProject(@project.Id, '@project.Name')" class="flex-1 py-2 px-3 border-2 border-red-600 text-red-600 font-medium rounded-lg hover:bg-red-50 transition text-sm">
+                                Delete
+                            </button>
                         </div>
                     </div>
                 }
@@ -161,232 +143,239 @@
     </div>
 </div>
 
+<!-- Modal backdrop and containers -->
+<div id="modal-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="hideAllModals()"></div>
+
 <!-- Add Employee Modal -->
-<div class="modal fade" id="addEmployeeModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Employee</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addEmployeeForm">
-                    <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="addFullName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" id="addEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="addPhone">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="addEmployee()">Add Employee</button>
-            </div>
+<div id="addEmployeeModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900">Add Employee</h3>
+            <button type="button" onclick="hideModal('addEmployeeModal')" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-6">
+            <form id="addEmployeeForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="addFullName" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
+                    <input type="email" id="addEmail" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Phone Number</label>
+                    <input type="tel" id="addPhone" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                </div>
+            </form>
+        </div>
+        <div class="flex justify-end gap-2 px-6 py-4 border-t border-slate-200">
+            <button type="button" onclick="hideModal('addEmployeeModal')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-medium rounded-lg transition">Cancel</button>
+            <button type="button" onclick="addEmployee()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Add Employee</button>
         </div>
     </div>
 </div>
 
 <!-- Edit Employee Modal -->
-<div class="modal fade" id="editEmployeeModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Employee</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editEmployeeForm">
-                    <input type="hidden" id="editEmployeeId">
-                    <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="editFullName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" id="editEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="editPhone">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="updateEmployee()">Update Employee</button>
-            </div>
+<div id="editEmployeeModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900">Edit Employee</h3>
+            <button type="button" onclick="hideModal('editEmployeeModal')" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-6">
+            <form id="editEmployeeForm">
+                <input type="hidden" id="editEmployeeId">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="editFullName" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
+                    <input type="email" id="editEmail" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Phone Number</label>
+                    <input type="tel" id="editPhone" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                </div>
+            </form>
+        </div>
+        <div class="flex justify-end gap-2 px-6 py-4 border-t border-slate-200">
+            <button type="button" onclick="hideModal('editEmployeeModal')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-medium rounded-lg transition">Cancel</button>
+            <button type="button" onclick="updateEmployee()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Update Employee</button>
         </div>
     </div>
 </div>
 
 <!-- Change Role Modal -->
-<div class="modal fade" id="changeRoleModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Change User Role</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<div id="changeRoleModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900">Change User Role</h3>
+            <button type="button" onclick="hideModal('changeRoleModal')" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-6">
+            <p class="text-slate-700 mb-4">Change role for: <strong id="roleUserName"></strong></p>
+            <input type="hidden" id="roleUserId">
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Select Role</label>
+                <select id="roleSelect" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                    <option value="Employee">Employee</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Admin">Admin</option>
+                </select>
             </div>
-            <div class="modal-body">
-                <p>Change role for: <strong id="roleUserName"></strong></p>
-                <input type="hidden" id="roleUserId">
-                <div class="mb-3">
-                    <label class="form-label">Select Role</label>
-                    <select class="form-select" id="roleSelect">
-                        <option value="Employee">Employee</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="changeRole()">Change Role</button>
-            </div>
+        </div>
+        <div class="flex justify-end gap-2 px-6 py-4 border-t border-slate-200">
+            <button type="button" onclick="hideModal('changeRoleModal')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-medium rounded-lg transition">Cancel</button>
+            <button type="button" onclick="changeRole()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Change Role</button>
         </div>
     </div>
 </div>
 
 <!-- Create Project Modal -->
-<div class="modal fade" id="createProjectModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create New Project</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="createProjectForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Project Name</label>
-                            <input type="text" class="form-control" id="projectName" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Project Code</label>
-                            <input type="text" class="form-control" id="projectCode" required>
-                        </div>
+<div id="createProjectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900">Create New Project</h3>
+            <button type="button" onclick="hideModal('createProjectModal')" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-6">
+            <form id="createProjectForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Project Name</label>
+                        <input type="text" id="projectName" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" id="projectDescription" rows="3"></textarea>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Project Code</label>
+                        <input type="text" id="projectCode" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Manager</label>
-                            <select class="form-select" id="projectManager" required>
-                                <option value="">Select Manager</option>
-                                @foreach (var manager in Model.Managers)
-                                {
-                                    <option value="@manager.Id">@manager.FullName</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" class="form-control" id="projectEndDate" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Team Members</label>
-                        <select multiple class="form-select" id="projectMembers" size="5">
-                            @foreach (var employee in Model.Employees)
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Description</label>
+                    <textarea id="projectDescription" rows="3" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Manager</label>
+                        <select id="projectManager" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                            <option value="">Select Manager</option>
+                            @foreach (var manager in Model.Managers)
                             {
-                                <option value="@employee.Id">@employee.FullName (@employee.Email)</option>
+                                <option value="@manager.Id">@manager.FullName</option>
                             }
                         </select>
-                        <small class="text-muted">Hold Ctrl/Cmd to select multiple members</small>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="createProject()">Create Project</button>
-            </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">End Date</label>
+                        <input type="date" id="projectEndDate" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Team Members</label>
+                    <select multiple id="projectMembers" size="5" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <option value="@employee.Id">@employee.FullName (@employee.Email)</option>
+                        }
+                    </select>
+                    <p class="text-slate-500 text-sm mt-1">Hold Ctrl/Cmd to select multiple members</p>
+                </div>
+            </form>
+        </div>
+        <div class="flex justify-end gap-2 px-6 py-4 border-t border-slate-200">
+            <button type="button" onclick="hideModal('createProjectModal')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-medium rounded-lg transition">Cancel</button>
+            <button type="button" onclick="createProject()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Create Project</button>
         </div>
     </div>
 </div>
 
 <!-- Update Project Modal -->
-<div class="modal fade" id="updateProjectModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Update Project</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<div id="updateProjectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-hidden="true">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900">Update Project</h3>
+            <button type="button" onclick="hideModal('updateProjectModal')" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-6">
+            <p class="text-slate-700 mb-4">Update: <strong id="updateProjectName"></strong></p>
+            <input type="hidden" id="updateProjectId">
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Status</label>
+                <select id="updateStatus" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                    <option value="0">Active</option>
+                    <option value="1">On Hold</option>
+                    <option value="2">Completed</option>
+                    <option value="3">Cancelled</option>
+                </select>
             </div>
-            <div class="modal-body">
-                <p>Update: <strong id="updateProjectName"></strong></p>
-                <input type="hidden" id="updateProjectId">
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <select class="form-select" id="updateStatus">
-                        <option value="0">Active</option>
-                        <option value="1">On Hold</option>
-                        <option value="2">Completed</option>
-                        <option value="3">Cancelled</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Progress (%)</label>
-                    <input type="number" class="form-control" id="updateProgress" min="0" max="100" step="1">
-                </div>
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Progress (%)</label>
+                <input type="number" id="updateProgress" min="0" max="100" step="1" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="updateProject()">Update Project</button>
-            </div>
+        </div>
+        <div class="flex justify-end gap-2 px-6 py-4 border-t border-slate-200">
+            <button type="button" onclick="hideModal('updateProjectModal')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-medium rounded-lg transition">Cancel</button>
+            <button type="button" onclick="updateProject()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Update Project</button>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        // Add Employee
+        function switchTab(name) {
+            document.querySelectorAll('.tab-panel').forEach(el => el.classList.add('hidden'));
+            document.getElementById('panel-' + name).classList.remove('hidden');
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+                btn.classList.remove('border-blue-600', 'text-blue-600', 'bg-slate-50');
+                btn.classList.add('border-transparent', 'text-slate-600');
+            });
+            var tabBtn = document.getElementById('tab-' + name);
+            if (tabBtn) {
+                tabBtn.classList.add('border-blue-600', 'text-blue-600', 'bg-slate-50');
+                tabBtn.classList.remove('border-transparent', 'text-slate-600');
+            }
+        }
+
+        function showModal(id) {
+            document.getElementById('modal-backdrop').classList.remove('hidden');
+            document.getElementById(id).classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+        function hideModal(id) {
+            document.getElementById('modal-backdrop').classList.add('hidden');
+            document.getElementById(id).classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+        function hideAllModals() {
+            document.getElementById('modal-backdrop').classList.add('hidden');
+            ['addEmployeeModal', 'editEmployeeModal', 'changeRoleModal', 'createProjectModal', 'updateProjectModal'].forEach(function(id) {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.body.classList.remove('overflow-hidden');
+        }
+
         function addEmployee() {
             const data = {
                 fullName: document.getElementById('addFullName').value,
                 email: document.getElementById('addEmail').value,
                 phoneNumber: document.getElementById('addPhone').value
             };
-
-            fetch('/Admin/AddOrUpdateEmployee', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Employee added successfully!');
-                    location.reload();
-                } else {
-                    alert('Failed to add employee');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
-            });
+            fetch('/Admin/AddOrUpdateEmployee', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                .then(r => r.json())
+                .then(result => { if (result.success) { alert('Employee added successfully!'); location.reload(); } else { alert('Failed to add employee'); } })
+                .catch(() => alert('An error occurred'));
         }
 
-        // Edit Employee Modal
         function openEditEmployeeModal(id, name, email, phone) {
             document.getElementById('editEmployeeId').value = id;
             document.getElementById('editFullName').value = name;
             document.getElementById('editEmail').value = email;
             document.getElementById('editPhone').value = phone || '';
-            new bootstrap.Modal(document.getElementById('editEmployeeModal')).show();
+            showModal('editEmployeeModal');
         }
 
-        // Update Employee
         function updateEmployee() {
             const data = {
                 id: document.getElementById('editEmployeeId').value,
@@ -394,175 +383,67 @@
                 email: document.getElementById('editEmail').value,
                 phoneNumber: document.getElementById('editPhone').value
             };
-
-            fetch('/Admin/AddOrUpdateEmployee', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Employee updated successfully!');
-                    location.reload();
-                } else {
-                    alert('Failed to update employee');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
-            });
+            fetch('/Admin/AddOrUpdateEmployee', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                .then(r => r.json())
+                .then(result => { if (result.success) { alert('Employee updated successfully!'); location.reload(); } else { alert('Failed to update employee'); } })
+                .catch(() => alert('An error occurred'));
         }
 
-        // Change Role Modal
         function openChangeRoleModal(userId, userName) {
             document.getElementById('roleUserId').value = userId;
             document.getElementById('roleUserName').textContent = userName;
-            new bootstrap.Modal(document.getElementById('changeRoleModal')).show();
+            showModal('changeRoleModal');
         }
 
-        // Change Role
         function changeRole() {
-            const data = {
-                userId: document.getElementById('roleUserId').value,
-                role: document.getElementById('roleSelect').value
-            };
-
-            fetch('/Admin/ChangeRole', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Role changed successfully!');
-                    location.reload();
-                } else {
-                    alert('Failed to change role');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
-            });
+            const data = { userId: document.getElementById('roleUserId').value, role: document.getElementById('roleSelect').value };
+            fetch('/Admin/ChangeRole', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                .then(r => r.json())
+                .then(result => { if (result.success) { alert('Role changed successfully!'); location.reload(); } else { alert('Failed to change role'); } })
+                .catch(() => alert('An error occurred'));
         }
 
-        // Create Project
         function createProject() {
             const memberSelect = document.getElementById('projectMembers');
-            const selectedMembers = Array.from(memberSelect.selectedOptions).map(option => option.value);
-
+            const selectedMembers = Array.from(memberSelect.selectedOptions).map(o => o.value);
             const projectName = document.getElementById('projectName').value;
             const projectCode = document.getElementById('projectCode').value;
             const managerId = document.getElementById('projectManager').value;
             const endDate = document.getElementById('projectEndDate').value;
-
-            // Validation
-            if (!projectName || !projectCode || !managerId || !endDate) {
-                alert('Please fill all required fields');
-                return;
-            }
-
-            const data = {
-                projectName: projectName,
-                projectCode: projectCode,
-                description: document.getElementById('projectDescription').value,
-                managerId: managerId,
-                endDate: endDate,
-                memberIds: selectedMembers
-            };
-
-            console.log('Creating project with data:', data);
-
-            fetch('/Admin/CreateProject', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(err => {
-                        throw new Error(err.message || 'Failed to create project');
-                    });
-                }
-                return response.json();
-            })
-            .then(result => {
-                console.log('Project creation result:', result);
-                if (result.success) {
-                    alert(result.message || 'Project created successfully!');
-                    location.reload();
-                } else {
-                    alert(result.message || 'Failed to create project');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error: ' + error.message);
-            });
+            if (!projectName || !projectCode || !managerId || !endDate) { alert('Please fill all required fields'); return; }
+            const data = { projectName, projectCode, description: document.getElementById('projectDescription').value, managerId, endDate, memberIds: selectedMembers };
+            fetch('/Admin/CreateProject', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                .then(r => { if (!r.ok) return r.json().then(err => { throw new Error(err.message || 'Failed to create project'); }); return r.json(); })
+                .then(result => { if (result.success) { alert(result.message || 'Project created successfully!'); location.reload(); } else { alert(result.message || 'Failed to create project'); } })
+                .catch(err => alert('Error: ' + err.message));
         }
 
-        // Update Project Modal
         function openUpdateProjectModal(id, name, status, progress) {
             document.getElementById('updateProjectId').value = id;
             document.getElementById('updateProjectName').textContent = name;
             document.getElementById('updateStatus').value = status;
             document.getElementById('updateProgress').value = progress;
-            new bootstrap.Modal(document.getElementById('updateProjectModal')).show();
+            showModal('updateProjectModal');
         }
 
-        // Update Project
         function updateProject() {
             const data = {
                 projectId: parseInt(document.getElementById('updateProjectId').value),
                 status: parseInt(document.getElementById('updateStatus').value),
                 progress: parseFloat(document.getElementById('updateProgress').value)
             };
-
-            fetch('/Admin/UpdateProject', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Project updated successfully!');
-                    location.reload();
-                } else {
-                    alert('Failed to update project');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
-            });
+            fetch('/Admin/UpdateProject', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                .then(r => r.json())
+                .then(result => { if (result.success) { alert('Project updated successfully!'); location.reload(); } else { alert('Failed to update project'); } })
+                .catch(() => alert('An error occurred'));
         }
 
-        // Delete Project
         function deleteProject(id, name) {
-            if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
-
-            fetch('/Admin/DeleteProject', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ projectId: id })
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Project deleted successfully!');
-                    location.reload();
-                } else {
-                    alert('Failed to delete project');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
-            });
+            if (!confirm('Are you sure you want to delete "' + name + '"?')) return;
+            fetch('/Admin/DeleteProject', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ projectId: id }) })
+                .then(r => r.json())
+                .then(result => { if (result.success) { alert('Project deleted successfully!'); location.reload(); } else { alert('Failed to delete project'); } })
+                .catch(() => alert('An error occurred'));
         }
     </script>
 }

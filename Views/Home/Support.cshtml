@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Support";
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-6">Support</h1>
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-6">
+        <p class="text-slate-700">For technical support or questions about WorkTrack, please contact your system administrator or use the channels below.</p>
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                <h3 class="font-semibold text-slate-900 mb-2">Documentation</h3>
+                <p class="text-sm text-slate-600">See the <a asp-controller="Home" asp-action="Index" class="text-blue-600 hover:underline">home page</a> for an overview of features.</p>
+            </div>
+            <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                <h3 class="font-semibold text-slate-900 mb-2">Privacy & Terms</h3>
+                <p class="text-sm text-slate-600">
+                    <a asp-controller="Home" asp-action="Privacy" class="text-blue-600 hover:underline">Privacy Policy</a> ·
+                    <a asp-controller="Home" asp-action="Terms" class="text-blue-600 hover:underline">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

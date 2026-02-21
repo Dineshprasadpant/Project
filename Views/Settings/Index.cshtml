@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-6">Settings</h1>
+    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <p class="text-slate-700 mb-4">Manage your account and preferences. For profile and password changes, use the link below.</p>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+            <i class="fas fa-user-cog"></i> Manage Account
+        </a>
+    </div>
+</div>

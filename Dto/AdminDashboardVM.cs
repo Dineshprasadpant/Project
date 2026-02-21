@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using WorkTrack.App.Models;
 
@@ -14,8 +14,8 @@ namespace WorkTrack.App.Dto
     }
     public class AdminDashboardVM
     {
-        public List<ApplicationUser> Employees { get; set; } = new();
-        public List<ApplicationUser> Managers { get; set; } = new();
+        public List<AdminUserVM> Employees { get; set; } = new();
+        public List<AdminUserVM> Managers { get; set; } = new();
         public List<ProjectCard> Projects { get; set; } = new();
     }
 

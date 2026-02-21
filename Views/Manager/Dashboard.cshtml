@@ -1,163 +1,192 @@
-﻿@model WorkTrack.App.Dto.ManagerDashboardVM
+@model WorkTrack.App.Dto.ManagerDashboardVM
 
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
 
-<div class="header-content">
-    <div class="header-actions">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
-            <span class="btn-icon">➕</span> Create New Task
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="mb-4 p-4 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="mb-4 p-4 rounded-xl bg-red-50 text-red-800 border border-red-200">@TempData["ErrorMessage"]</div>
+    }
+    <div class="flex flex-wrap justify-end gap-4 mb-6">
+        <button type="button" onclick="document.getElementById('createTaskModal').classList.remove('hidden'); document.getElementById('createTaskBackdrop').classList.remove('hidden');" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow transition">
+            <span class="text-lg">➕</span> Create New Task
         </button>
-       @* <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createProjectModal">
-            <span class="btn-icon">📁</span> New Project
-        </button>*@
     </div>
-</div>
 
-
-
-<div class="stats-grid">
-
-    <div class="stat-card stat-card-primary">
-        <div class="stat-icon">📊</div>
-        <div class="stat-content">
-            <h3 class="stat-value">@Model.OngoingProjects</h3>
-            <p class="stat-label">Ongoing Projects</p>
+    <div id="createTaskBackdrop" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="document.getElementById('createTaskModal').classList.add('hidden'); this.classList.add('hidden');"></div>
+    <div id="createTaskModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-hidden="true">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+                <h3 class="text-xl font-bold text-slate-900">Create New Task</h3>
+                <button type="button" onclick="document.getElementById('createTaskModal').classList.add('hidden'); document.getElementById('createTaskBackdrop').classList.add('hidden');" class="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><i class="fas fa-times"></i></button>
+            </div>
+            <form asp-action="CreateTask" method="post" class="p-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Project</label>
+                    <select name="ProjectId" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                        <option value="">Select Project</option>
+                        @foreach (var p in Model.Projects)
+                        {
+                            <option value="@p.ProjectId">@p.Name (@p.Code)</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Assign To</label>
+                    <select name="AssignedToId" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                        <option value="">Select Team Member</option>
+                        @foreach (var m in Model.TeamMembersList)
+                        {
+                            if (!string.IsNullOrEmpty(m.Id))
+                            {
+                                <option value="@m.Id">@m.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Task Title</label>
+                    <input type="text" name="TaskTitle" required maxlength="200" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Enter task title" />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Description (optional)</label>
+                    <textarea name="Description" rows="2" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Due Date</label>
+                    <input type="date" name="DueDate" required class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Priority</label>
+                    <select name="Priority" class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                        <option value="0">Low</option>
+                        <option value="1" selected>Medium</option>
+                        <option value="2">High</option>
+                        <option value="3">Critical</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="document.getElementById('createTaskModal').classList.add('hidden'); document.getElementById('createTaskBackdrop').classList.add('hidden');" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 font-medium rounded-lg transition">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">Create Task</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="stat-card stat-card-success">
-        <div class="stat-icon">👥</div>
-        <div class="stat-content">
-            <h3 class="stat-value">@Model.TeamMembers</h3>
-            <p class="stat-label">Team Members</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-blue-600 text-blue-600 hover:shadow-lg hover:-translate-y-0.5 transition relative overflow-hidden">
+            <div class="text-3xl mb-3 opacity-90">📊</div>
+            <h3 class="text-2xl font-bold text-slate-900">@Model.OngoingProjects</h3>
+            <p class="text-sm font-medium text-slate-500 mt-1">Ongoing Projects</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-emerald-500 text-emerald-600 hover:shadow-lg hover:-translate-y-0.5 transition relative overflow-hidden">
+            <div class="text-3xl mb-3 opacity-90">👥</div>
+            <h3 class="text-2xl font-bold text-slate-900">@Model.TeamMembers</h3>
+            <p class="text-sm font-medium text-slate-500 mt-1">Team Members</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-amber-500 text-amber-600 hover:shadow-lg hover:-translate-y-0.5 transition relative overflow-hidden">
+            <div class="text-3xl mb-3 opacity-90">⏳</div>
+            <h3 class="text-2xl font-bold text-slate-900">@Model.ActiveTasks</h3>
+            <p class="text-sm font-medium text-slate-500 mt-1">Active Tasks</p>
+            <div class="flex items-center gap-2 text-sm font-semibold text-slate-600 mt-2">
+                <span>@Model.PendingTasks pending</span>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow border-l-4 border-cyan-500 text-cyan-600 hover:shadow-lg hover:-translate-y-0.5 transition relative overflow-hidden">
+            <div class="text-3xl mb-3 opacity-90">✅</div>
+            <h3 class="text-2xl font-bold text-slate-900">@Model.CompletionRate%</h3>
+            <p class="text-sm font-medium text-slate-500 mt-1">Completion Rate</p>
         </div>
     </div>
 
-    <div class="stat-card stat-card-warning">
-        <div class="stat-icon">⏳</div>
-        <div class="stat-content">
-            <h3 class="stat-value">@Model.ActiveTasks</h3>
-            <p class="stat-label">Active Tasks</p>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="lg:col-span-2 bg-white rounded-xl p-6 shadow">
+            <div class="flex justify-between items-center mb-4 pb-4 border-b-2 border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-2xl">📁</span> Ongoing Projects
+                </h2>
+            </div>
+            <div class="space-y-4">
+                @foreach (var project in Model.Projects)
+                {
+                    <div class="border border-slate-200 rounded-xl p-4 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-500 transition bg-white">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold text-slate-900">@project.Name</h3>
+                                <span class="inline-block mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 bg-slate-100 px-2 py-0.5 rounded">@project.Code</span>
+                            </div>
+                            <span class="rounded-lg px-2.5 py-1 text-xs font-bold uppercase bg-emerald-100 text-emerald-800">@project.Status</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4 mb-3 text-sm text-slate-500">
+                            <span class="flex items-center gap-1">👥 @project.MembersCount Members</span>
+                            <span class="flex items-center gap-1">📅 Due: @project.EndDate.ToString()</span>
+                        </div>
+                        <div class="mb-2">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="font-semibold text-slate-900">Progress</span>
+                                <span class="font-bold text-blue-600">@project.Progress%</span>
+                            </div>
+                            <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-blue-600 to-blue-500 rounded-full transition-all" style="width:@project.Progress%"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="stat-trend trend-neutral">
-            <span class="trend-value">@Model.PendingTasks pending</span>
+
+        <div class="bg-white rounded-xl p-6 shadow">
+            <div class="flex justify-between items-center mb-4 pb-4 border-b-2 border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-3">
+                    <span class="text-2xl">👥</span> My Team
+                </h2>
+            </div>
+            <div class="space-y-3">
+                @foreach (var member in Model.TeamMembersList)
+                {
+                    <div class="flex items-center gap-4 p-3 border border-slate-200 rounded-xl hover:shadow-md hover:border-blue-500 hover:translate-x-1 transition bg-white">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 shadow">
+                            @(member.FullName != null ? member.FullName.Length >= 2 ? member.FullName.Substring(0, 2).ToUpper() : member.FullName.ToUpper() : "?")
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-semibold text-slate-900">@member.FullName</h4>
+                            <p class="text-sm text-slate-500">@member.Role</p>
+                        </div>
+                        <span class="rounded-lg px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-800">@member.TaskCount</span>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 
-    <div class="stat-card stat-card-info">
-        <div class="stat-icon">✅</div>
-        <div class="stat-content">
-            <h3 class="stat-value">@Model.CompletionRate%</h3>
-            <p class="stat-label">Completion Rate</p>
-        </div>
-    </div>
-
-</div>
-
-<!-- ================= MAIN GRID ================= -->
-<div class="dashboard-grid">
-
-    <!-- ===== PROJECTS ===== -->
-    <div class="dashboard-section projects-section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-icon">📁</span> Ongoing Projects
+    <div class="bg-white rounded-xl p-6 shadow">
+        <div class="flex justify-between items-center mb-4 pb-4 border-b-2 border-slate-200">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-3">
+                <span class="text-2xl">📊</span> Project Timeline
             </h2>
         </div>
-
-        <div class="projects-list">
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
             @foreach (var project in Model.Projects)
             {
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-info">
-                            <h3 class="project-name">@project.Name</h3>
-                            <span class="project-code">@project.Code</span>
-                        </div>
-                        <div class="project-status status-active">@project.Status</div>
+                <div class="grid grid-cols-1 md:grid-cols-[300px_1fr] border-b border-slate-200 last:border-b-0 hover:bg-slate-50 transition">
+                    <div class="p-4 border-r-2 border-slate-200">
+                        <div class="font-semibold text-slate-900">@project.Name</div>
+                        <div class="text-sm text-slate-500">@project.MembersCount members</div>
                     </div>
-
-                    <div class="project-meta">
-                        <div class="meta-item">👥 @project.MembersCount Members</div>
-                        <div class="meta-item">📅 Due: @project.EndDate.ToString()</div>
-                    </div>
-
-                    <div class="project-progress">
-                        <div class="progress-header">
-                            <span>Progress</span>
-                            <span>@project.Progress%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:@project.Progress%"></div>
+                    <div class="p-4 flex items-center relative">
+                        <div class="absolute left-0 right-0 top-1/2 h-px bg-slate-200 -translate-y-1/2"></div>
+                        <div class="relative z-10 h-8 rounded-lg flex items-center px-4 text-white font-semibold text-xs bg-gradient-to-r from-blue-600 to-blue-500 shadow-md hover:shadow-lg transition" style="width: max(20%, @project.Progress%); min-width: 80px;">
+                            @project.Progress% Complete
                         </div>
                     </div>
                 </div>
             }
         </div>
     </div>
-
-    <div class="dashboard-section team-section">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="section-icon">👥</span> My Team
-            </h2>
-        </div>
-
-        <div class="team-list">
-            @foreach (var member in Model.TeamMembersList)
-            {
-                <div class="team-member">
-                    <div class="member-avatar">
-                        @member.FullName.Substring(0, 2).ToUpper()
-                    </div>
-
-                    <div class="member-info">
-                        <h4 class="member-name">@member.FullName</h4>
-                        <p class="member-role">@member.Role</p>
-                    </div>
-
-                    <div class="member-stats">
-                        <div class="stat-badge stat-badge-success">
-                            @member.TaskCount
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-
 </div>
-
-
-<div class="dashboard-section gantt-section">
-    <div class="section-header">
-        <h2 class="section-title">
-            <span class="section-icon">📊</span> Project Timeline
-        </h2>
-    </div>
-
-    <div class="gantt-chart">
-        @foreach (var project in Model.Projects)
-        {
-            <div class="gantt-row">
-                <div class="gantt-project-info">
-                    <div class="gantt-project-name">@project.Name</div>
-                    <div class="gantt-project-team">@project.MembersCount members</div>
-                </div>
-                <div class="gantt-timeline-row">
-                    <div class="gantt-bar gantt-bar-primary"
-                         style="width:@project.Progress%">
-                        @project.Progress% Complete
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
-
-@section Styles {
-    <link rel="stylesheet" href="~/css/manager-dashboard.css" asp-append-version="true" />
-}

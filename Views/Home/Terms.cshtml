@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Terms of Service";
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-6">Terms of Service</h1>
+    <p class="text-slate-600 mb-4">Last updated: @DateTime.UtcNow.ToString("yyyy-MM-dd")</p>
+    <div class="prose prose-slate max-w-none space-y-4 text-slate-700">
+        <p>By using WorkTrack, you agree to these terms. Use the application responsibly and in accordance with your organization's policies.</p>
+        <h2 class="text-xl font-semibold text-slate-900 mt-6">Acceptable Use</h2>
+        <p>You must not use WorkTrack for any unlawful purpose or to violate any applicable laws or regulations.</p>
+        <h2 class="text-xl font-semibold text-slate-900 mt-6">Data and Privacy</h2>
+        <p>Your use of WorkTrack is also governed by our <a asp-controller="Home" asp-action="Privacy" class="text-blue-600 hover:underline">Privacy Policy</a>.</p>
+        <h2 class="text-xl font-semibold text-slate-900 mt-6">Contact</h2>
+        <p>For questions about these terms, please use the <a asp-controller="Home" asp-action="Support" class="text-blue-600 hover:underline">Support</a> page.</p>
+    </div>
+</div>

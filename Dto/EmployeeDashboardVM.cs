@@ -1,9 +1,13 @@
-﻿using WorkTrack.App.Models;
+using WorkTrack.App.Models;
 
 namespace WorkTrack.App.Dto
 {
     public class EmployeeDashboardVM
     {
+        public int TotalTasks { get; set; }
+        public int CompletedTasks { get; set; }
+        public int PendingTasks { get; set; }
+        public int InProgressTasks { get; set; }
         public List<EmployeeProjectVM> Projects { get; set; } = new();
         public List<EmployeeTaskVM> Tasks { get; set; } = new();
     }

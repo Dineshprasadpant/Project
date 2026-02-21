@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -99,8 +99,8 @@ namespace WorkTrack.App.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
                 user.EmailConfirmed = true;
 
-                // ADD THIS: Always set Position to "Employee" for new registrations
-                user.Position = "Employee"; // This is the critical line
+                user.Position = "Employee";
+                user.Role = UserRole.Employee;
 
                 // This sets the username (which is email)
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

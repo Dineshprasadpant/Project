@@ -1,8 +1,104 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+<header class="relative bg-white pt-16 pb-24 overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-transparent to-transparent opacity-70"></div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-4">
+            Welcome to <span class="text-blue-600">WorkTrack</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-500 font-medium mb-12">
+            Streamline your projects. Boost productivity.
+        </p>
+
+        <div class="relative flex justify-center mb-20">
+            <div class="absolute -inset-1 bg-blue-100 rounded-full blur-3xl opacity-30"></div>
+            <img src="https://illustrations.popsy.co/slate/remote-work.svg"
+                 alt="Team working together"
+                 class="relative w-full max-w-2xl drop-shadow-2xl h-auto" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-8">
+            <div class="flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 mb-4 bg-white shadow-sm">
+                    <i class="fas fa-cog text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Manage Tasks</h3>
+                <p class="text-slate-500 text-sm leading-relaxed max-w-[250px]">
+                    An intuitive center for projects. Effortlessly organize and assign.
+                </p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 mb-4 bg-white shadow-sm">
+                    <i class="fas fa-chart-line text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Track Progress</h3>
+                <p class="text-slate-500 text-sm leading-relaxed max-w-[250px]">
+                    Visual data insights to keep your team on track and ahead.
+                </p>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 mb-4 bg-white shadow-sm">
+                    <i class="fas fa-cloud text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Collaborate</h3>
+                <p class="text-slate-500 text-sm leading-relaxed max-w-[250px]">
+                    Enhance communication and support with integrated cloud tools.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <!-- Logged-in User Section -->
+    <section class="bg-white py-20 border-t border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-slate-900">
+                Welcome back, @User.Identity?.Name 👋
+            </h2>
+            <p class="text-slate-600 mb-8">
+                Continue managing your tasks and monitor your productivity.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a asp-controller="Dashboard" asp-action="Index"
+                   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow transition no-underline">
+                    Go to Dashboard
+                </a>
+
+                <a asp-controller="Task" asp-action="Index"
+                   class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg shadow transition no-underline">
+                    View My Tasks
+                </a>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="bg-slate-50 py-20 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-slate-900">
+                Ready to transform your workflow?
+            </h2>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a asp-area="Identity" asp-page="/Account/Register"
+                   class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition no-underline">
+                    Get Started for Free
+                </a>
+
+                <a asp-area="Identity" asp-page="/Account/Login"
+                   class="bg-white border border-slate-300 hover:border-blue-400 text-slate-700 font-bold py-3 px-8 rounded-lg transition no-underline">
+                    Log In
+                </a>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Help & Support";
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-slate-900 mb-6">Help & Support</h1>
+    <div class="space-y-6">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+            <h2 class="text-xl font-semibold text-slate-900 mb-3">Getting Started</h2>
+            <p class="text-slate-700">WorkTrack helps you manage projects and tasks. Use your role-specific dashboard to view assignments and update status.</p>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+            <h2 class="text-xl font-semibold text-slate-900 mb-3">Role Guide</h2>
+            <ul class="list-disc list-inside space-y-2 text-slate-700">
+                <li><strong>Admin:</strong> Manage users, roles, and projects from the Admin dashboard.</li>
+                <li><strong>Manager:</strong> View team projects and tasks; create and assign tasks from the Manager dashboard.</li>
+                <li><strong>Employee:</strong> View assigned projects and tasks; update task status from My Dashboard.</li>
+            </ul>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+            <h2 class="text-xl font-semibold text-slate-900 mb-3">Need More Help?</h2>
+            <p class="text-slate-700">Contact your system administrator or visit <a asp-controller="Home" asp-action="Support" class="text-blue-600 hover:underline">Support</a>.</p>
+        </div>
+    </div>
+</div>
